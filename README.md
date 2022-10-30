@@ -162,17 +162,30 @@ public function routeNotificationForTwilio()
 }
 ```
 
+Or simply override the existing To number by calling the `to` method on a `TwilioMessage` instance.
+
+```php
+public function toTwilio($notifiable)
+{
+    return (new TwilioSmsMessage())
+        ->content("Your {$notifiable->service} account was approved!")
+        ->to('+1234567890');
+}
+```
+
 ### Available Message methods
 
 #### TwilioSmsMessage
 
 - `from('')`: Accepts a phone to use as the notification sender.
+- `to('')`: Accepts a phone to use as the notification receiver.
 - `content('')`: Accepts a string value for the notification body.
 - `messagingServiceSid('')`: Accepts a messaging service SID to handle configuration.
 
 #### TwilioCallMessage
 
 - `from('')`: Accepts a phone to use as the notification sender.
+- `to('')`: Accepts a phone to use as the notification receiver.
 - `url('')`: Accepts an url for the call TwiML.
 
 ## Changelog
